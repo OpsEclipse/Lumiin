@@ -1,12 +1,24 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowRight, PlayCircle } from '@phosphor-icons/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+	ArrowRight,
+	PlayCircle,
+	CircleNotch,
+} from '@phosphor-icons/react';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 
 export function Hero(): React.ReactElement {
 	const { isSignedIn } = useAuth();
+	const router = useRouter();
+	const [isNavigating, setIsNavigating] = useState(false);
+
+	const handleGetStarted = () => {
+		setIsNavigating(true);
+		router.push(isSignedIn ? '/dashboard' : '/sign-up');
+	};
 
 	return (
 		<section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
@@ -51,24 +63,25 @@ export function Hero(): React.ReactElement {
 						{/* CTA Buttons */}
 						<div className="flex flex-col sm:flex-row gap-4">
 							<Button
-								asChild
+								onClick={handleGetStarted}
+								disabled={isNavigating}
 								size="lg"
-								className="text-lg px-8 py-6 shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all group"
+								className="text-lg px-8 py-6 shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all group disabled:opacity-50"
 							>
-								<Link
-									href={
-										isSignedIn
-											? '/dashboard'
-											: '/sign-up'
-									}
-								>
-									Get Started Free
+								Get Started Free
+								{isNavigating ? (
+									<CircleNotch
+										size={20}
+										weight="bold"
+										className="ml-2 animate-spin"
+									/>
+								) : (
 									<ArrowRight
 										size={20}
 										weight="bold"
 										className="ml-2 group-hover:translate-x-1 transition-transform"
 									/>
-								</Link>
+								)}
 							</Button>
 							<Button
 								asChild

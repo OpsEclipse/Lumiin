@@ -1,7 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-import { CheckCircle, Sparkle } from '@phosphor-icons/react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+	CheckCircle,
+	Sparkle,
+	CircleNotch,
+} from '@phosphor-icons/react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@clerk/nextjs';
 
@@ -20,6 +25,13 @@ const features = [
 
 export function Pricing(): React.ReactElement {
 	const { isSignedIn } = useAuth();
+	const router = useRouter();
+	const [isNavigating, setIsNavigating] = useState(false);
+
+	const handleStartFree = () => {
+		setIsNavigating(true);
+		router.push(isSignedIn ? '/dashboard' : '/sign-up');
+	};
 
 	return (
 		<section
@@ -112,19 +124,19 @@ export function Pricing(): React.ReactElement {
 
 							{/* CTA Button */}
 							<Button
-								asChild
+								onClick={handleStartFree}
+								disabled={isNavigating}
 								size="lg"
-								className="w-full text-lg py-6 shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all"
+								className="w-full text-lg py-6 shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all disabled:opacity-50"
 							>
-								<Link
-									href={
-										isSignedIn
-											? '/dashboard'
-											: '/sign-up'
-									}
-								>
-									Start Using Lumiin Free
-								</Link>
+								{isNavigating && (
+									<CircleNotch
+										size={20}
+										weight="bold"
+										className="mr-2 animate-spin"
+									/>
+								)}
+								Start Using Lumiin Free
 							</Button>
 
 							{/* Footer Note */}

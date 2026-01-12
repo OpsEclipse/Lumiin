@@ -1,11 +1,20 @@
 'use client';
 
-import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { CircleNotch } from '@phosphor-icons/react';
 import { useAuth } from '@clerk/nextjs';
 import { Button } from '@/components/ui/button';
 
 export function CTA(): React.ReactElement {
 	const { isSignedIn } = useAuth();
+	const router = useRouter();
+	const [isNavigating, setIsNavigating] = useState(false);
+
+	const handleStartFree = () => {
+		setIsNavigating(true);
+		router.push(isSignedIn ? '/dashboard' : '/sign-up');
+	};
 
 	return (
 		<section className="py-24 bg-card relative">
@@ -20,15 +29,19 @@ export function CTA(): React.ReactElement {
 				</p>
 
 				<Button
-					asChild
+					onClick={handleStartFree}
+					disabled={isNavigating}
 					size="lg"
-					className="px-12 py-6 text-lg shadow-xl shadow-primary/25"
+					className="px-12 py-6 text-lg shadow-xl shadow-primary/25 disabled:opacity-50"
 				>
-					<Link
-						href={isSignedIn ? '/dashboard' : '/sign-up'}
-					>
-						Start for Free
-					</Link>
+					{isNavigating && (
+						<CircleNotch
+							size={20}
+							weight="bold"
+							className="mr-2 animate-spin"
+						/>
+					)}
+					Start for Free
 				</Button>
 
 				<p className="mt-6 text-sm text-muted-foreground">
