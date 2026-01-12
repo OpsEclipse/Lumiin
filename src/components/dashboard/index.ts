@@ -1,0 +1,9 @@
+export { Sidebar } from './sidebar';
+export { DashboardHeader } from './header';
+export { StatCards } from './stat-cards';
+export { WeeklyChart } from './weekly-chart';
+export { FocusHeatmap } from './focus-heatmap';
+export { SessionsTable } from './sessions-table';
+export { SessionHistoryTable } from './session-history-table';
+export { AIRecommendation } from './ai-recommendation';
+export { StartSessionCard } from './start-session-card';

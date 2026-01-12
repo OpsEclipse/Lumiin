@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh .claude/hooks/format.sh"
+          },
+          {
+            "type": "command",
+            "command": "sh .claude/hooks/update-settings-docs.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
