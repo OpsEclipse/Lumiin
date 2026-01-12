@@ -7,6 +7,7 @@ import {
 	Features,
 	Privacy,
 	FocusGlow,
+	Pricing,
 	CTA,
 	Footer,
 } from '@/components/landing';
@@ -21,6 +22,7 @@ export default function Home(): React.ReactElement {
 				<Features />
 				<Privacy />
 				<FocusGlow />
+				<Pricing />
 				<CTA />
 			</main>
 			<Footer />

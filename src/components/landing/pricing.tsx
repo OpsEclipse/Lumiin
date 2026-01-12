@@ -1,163 +1,153 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { CheckCircle, Circle } from "@phosphor-icons/react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import { CheckCircle, Sparkle } from '@phosphor-icons/react';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@clerk/nextjs';
 
-interface PricingTier {
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-  cta: string;
-  featured?: boolean;
-  badge?: string;
-}
-
-const tiers: PricingTier[] = [
-  {
-    name: "Starter",
-    price: "$0",
-    period: "/mo",
-    description: "Get started with basic focus tracking",
-    features: [
-      "Basic Posture Alerts",
-      "1 Hour Session Limit",
-      "Weekly Summary",
-    ],
-    cta: "Get Started",
-  },
-  {
-    name: "Professional",
-    price: "$12",
-    period: "/mo",
-    description: "For serious deep workers",
-    features: [
-      "Everything in Starter",
-      "Unlimited Sessions",
-      "FocusGlow™ Analytics",
-      "Posture Trends",
-    ],
-    cta: "Start 14-Day Free Trial",
-    featured: true,
-    badge: "Popular",
-  },
-  {
-    name: "Team",
-    price: "$29",
-    period: "/seat",
-    description: "For teams that value wellness",
-    features: [
-      "Volume Discounts",
-      "Team Wellness Reports",
-      "SSO & Admin Panel",
-    ],
-    cta: "Contact Sales",
-  },
+const features = [
+	'Unlimited Sessions',
+	'Real-time Posture Tracking',
+	'AI-Powered Analytics',
+	'Posture Trends & Insights',
+	'Session History & Reports',
+	'Customizable Alerts',
+	'Focus Heatmap',
+	'Weekly Performance Charts',
+	'Privacy-First (No Video Upload)',
+	'All Future Updates',
 ];
 
 export function Pricing(): React.ReactElement {
-  return (
-    <section
-      className="py-24 bg-background relative overflow-hidden"
-      id="pricing"
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+	const { isSignedIn } = useAuth();
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl uppercase tracking-widest font-light text-foreground mb-4">
-            Simple, transparent pricing
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Invest in your long-term health and productivity.
-          </p>
-        </div>
+	return (
+		<section
+			className="py-24 bg-gradient-to-b from-background to-card relative overflow-hidden"
+			id="pricing"
+		>
+			{/* Background Effects */}
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-3xl" />
 
-        {/* Pricing Cards */}
-        <div className="grid lg:grid-cols-3 gap-0 max-w-5xl mx-auto overflow-hidden border border-border shadow-2xl">
-          {tiers.map((tier, index) => (
-            <div
-              key={tier.name}
-              className={`p-8 flex flex-col ${
-                tier.featured
-                  ? "bg-card relative"
-                  : "bg-background"
-              } ${
-                index === 0
-                  ? "border-b lg:border-b-0 lg:border-r border-border"
-                  : index === 2
-                  ? "border-t lg:border-t-0 lg:border-l border-border"
-                  : ""
-              }`}
-            >
-              {/* Featured Gradient Bar */}
-              {tier.featured && (
-                <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary to-secondary" />
-              )}
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+				{/* Section Header */}
+				<div className="text-center mb-16">
+					<div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 mb-6">
+						<Sparkle
+							size={16}
+							weight="fill"
+							className="text-primary"
+						/>
+						<span className="text-xs uppercase tracking-widest text-primary font-semibold">
+							No Hidden Costs
+						</span>
+					</div>
+					<h2 className="text-5xl md:text-6xl uppercase tracking-widest font-bold text-foreground mb-4">
+						100% Free
+					</h2>
+					<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+						Everything you need to improve your posture
+						and focus.{' '}
+						<span className="text-primary font-semibold">
+							Forever free.
+						</span>
+					</p>
+				</div>
 
-              {/* Header */}
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl uppercase tracking-widest font-light text-foreground">
-                  {tier.name}
-                </h3>
-                {tier.badge && (
-                  <Badge variant="outline" className="bg-primary/20 text-primary border-primary/30 uppercase tracking-widest">
-                    {tier.badge}
-                  </Badge>
-                )}
-              </div>
+				{/* Single Pricing Card - Centered */}
+				<div className="max-w-xl mx-auto">
+					<div className="relative">
+						{/* Gradient Border Effect */}
+						<div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-primary opacity-75 blur-lg" />
 
-              {/* Price */}
-              <div className="mb-4">
-                <span className="text-4xl font-light text-foreground">
-                  {tier.price}
-                </span>
-                <span className="text-muted-foreground">
-                  {tier.period}
-                </span>
-              </div>
+						{/* Main Card */}
+						<div className="relative bg-card border-2 border-primary/50 shadow-2xl p-10">
+							{/* Top Accent Bar */}
+							<div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-primary via-secondary to-primary" />
 
-              {/* Description */}
-              <p className="text-sm mb-6 text-muted-foreground">
-                {tier.description}
-              </p>
+							{/* Header */}
+							<div className="text-center mb-8">
+								<h3 className="text-3xl uppercase tracking-widest font-bold text-foreground mb-2">
+									Free Forever
+								</h3>
+								<p className="text-muted-foreground">
+									All features. No limitations. No
+									credit card.
+								</p>
+							</div>
 
-              {/* Features */}
-              <ul className="space-y-3 mb-8 flex-1">
-                {tier.features.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-center text-sm text-muted-foreground"
-                  >
-                    {tier.featured ? (
-                      <CheckCircle size={20} weight="fill" className="mr-3 text-primary" />
-                    ) : (
-                      <Circle size={20} weight="fill" className="mr-3 text-muted-foreground" />
-                    )}
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+							{/* Price */}
+							<div className="text-center mb-8">
+								<div className="inline-flex items-baseline">
+									<span className="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+										$0
+									</span>
+									<span className="text-2xl text-muted-foreground ml-2">
+										/forever
+									</span>
+								</div>
+							</div>
 
-              {/* CTA Button */}
-              <Button
-                asChild
-                variant={tier.featured ? "default" : "outline"}
-                className={tier.featured ? "shadow-lg shadow-primary/25" : ""}
-              >
-                <Link href={tier.name === "Team" ? "#" : "/sign-up"}>
-                  {tier.cta}
-                </Link>
-              </Button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+							{/* Features Grid */}
+							<div className="mb-8">
+								<p className="text-sm uppercase tracking-widest text-muted-foreground mb-4 text-center font-semibold">
+									Everything Included
+								</p>
+								<ul className="grid grid-cols-1 gap-3">
+									{features.map((feature) => (
+										<li
+											key={feature}
+											className="flex items-center text-sm text-foreground"
+										>
+											<CheckCircle
+												size={20}
+												weight="fill"
+												className="mr-3 text-primary flex-shrink-0"
+											/>
+											<span>{feature}</span>
+										</li>
+									))}
+								</ul>
+							</div>
+
+							{/* CTA Button */}
+							<Button
+								asChild
+								size="lg"
+								className="w-full text-lg py-6 shadow-xl shadow-primary/30 hover:shadow-primary/50 transition-all"
+							>
+								<Link
+									href={
+										isSignedIn
+											? '/dashboard'
+											: '/sign-up'
+									}
+								>
+									Start Using Lumiin Free
+								</Link>
+							</Button>
+
+							{/* Footer Note */}
+							<p className="text-center text-xs text-muted-foreground mt-6">
+								No tricks. No trials. Just free,
+								forever. 🎉
+							</p>
+						</div>
+					</div>
+				</div>
+
+				{/* Additional Emphasis */}
+				<div className="mt-16 text-center">
+					<p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+						We believe great posture and focus should be
+						accessible to everyone.{' '}
+						<span className="text-primary font-semibold">
+							That's why Lumiin will always be free.
+						</span>{' '}
+						No premium tiers, no paywalls, no surprises.
+					</p>
+				</div>
+			</div>
+		</section>
+	);
 }
