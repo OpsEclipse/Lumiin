@@ -53,8 +53,8 @@ export default async function DashboardPage(): Promise<React.ReactElement> {
 			<DashboardHeader title="Overview" />
 
 			<div className="p-8 space-y-8">
-				{/* Start Session CTA */}
-				<StartSessionCard />
+				{/* Start Session CTA - Only show for first-time users */}
+				{sessions.length === 0 && <StartSessionCard />}
 
 				{/* Stat Cards */}
 				<StatCards
