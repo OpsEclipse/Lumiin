@@ -10,7 +10,6 @@ import {
 	ChartLineUp,
 	Timer,
 	PersonSimpleRun,
-	Gear,
 	Play,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
@@ -32,7 +31,6 @@ const NAV_ITEMS = [
 		href: '/dashboard/posture',
 		icon: PersonSimpleRun,
 	},
-	{ label: 'Settings', href: '/dashboard/settings', icon: Gear },
 ];
 
 export function Sidebar(): React.ReactElement {
