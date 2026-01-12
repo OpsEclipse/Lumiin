@@ -4,9 +4,7 @@ import {
 	StatCards,
 	WeeklyChart,
 	FocusHeatmap,
-	SessionsTable,
 	SessionHistoryTable,
-	AIRecommendation,
 	StartSessionCard,
 } from '@/components/dashboard';
 import {
@@ -14,7 +12,6 @@ import {
 	getWeeklyData,
 	getHeatmapData,
 	getRecentSessions,
-	getAIRecommendation,
 } from '@/lib/dashboard-data';
 
 export default async function DashboardPage(): Promise<React.ReactElement> {
@@ -34,19 +31,13 @@ export default async function DashboardPage(): Promise<React.ReactElement> {
 	}
 
 	// Fetch all dashboard data in parallel
-	const [
-		stats,
-		weeklyData,
-		heatmapResult,
-		sessions,
-		recommendation,
-	] = await Promise.all([
-		getUserStats(userId),
-		getWeeklyData(userId),
-		getHeatmapData(userId),
-		getRecentSessions(userId),
-		getAIRecommendation(userId),
-	]);
+	const [stats, weeklyData, heatmapResult, sessions] =
+		await Promise.all([
+			getUserStats(userId),
+			getWeeklyData(userId),
+			getHeatmapData(userId),
+			getRecentSessions(userId),
+		]);
 
 	return (
 		<>
@@ -89,9 +80,6 @@ export default async function DashboardPage(): Promise<React.ReactElement> {
 					title="Recent Sessions"
 					showControls={false}
 				/>
-
-				{/* AI Recommendation */}
-				<AIRecommendation recommendation={recommendation} />
 			</div>
 		</>
 	);
