@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { UserButton } from '@clerk/nextjs';
 import {
 	Lightning,
@@ -36,6 +37,11 @@ const NAV_ITEMS = [
 
 export function Sidebar(): React.ReactElement {
 	const pathname = usePathname();
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	return (
 		<aside className="w-64 border-r border-border flex flex-col fixed h-full bg-sidebar z-20">
@@ -97,13 +103,17 @@ export function Sidebar(): React.ReactElement {
 			{/* User Footer */}
 			<div className="p-4 border-t border-border">
 				<div className="flex items-center gap-3 px-4 py-3">
-					<UserButton
-						appearance={{
-							elements: {
-								avatarBox: 'w-8 h-8',
-							},
-						}}
-					/>
+					{mounted ? (
+						<UserButton
+							appearance={{
+								elements: {
+									avatarBox: 'w-8 h-8',
+								},
+							}}
+						/>
+					) : (
+						<div className="w-8 h-8 rounded-full bg-muted animate-pulse" />
+					)}
 					<div className="flex flex-col">
 						<span className="text-sm font-medium">
 							Account

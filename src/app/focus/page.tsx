@@ -376,7 +376,7 @@ export default function FocusSetupPage(): React.ReactElement {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-[#0A1C2A] via-[#0F3A4B] to-[#1B5E6D] flex items-center justify-center p-8">
+		<div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex items-center justify-center p-8">
 			<motion.div
 				className="w-full max-w-2xl"
 				initial={{ opacity: 0, y: 16 }}

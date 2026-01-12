@@ -521,14 +521,14 @@ export default function ActiveSessionPage(): React.ReactElement {
 
 	if (!sessionData) {
 		return (
-			<div className="min-h-screen bg-gradient-to-br from-[#0A1C2A] via-[#0F3A4B] to-[#1B5E6D] flex items-center justify-center">
+			<div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex items-center justify-center">
 				<LumiinLoader size="xl" className="text-white" />
 			</div>
 		);
 	}
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-[#0A1C2A] via-[#0F3A4B] to-[#1B5E6D] relative overflow-hidden">
+		<div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
 			{/* Main Content */}
 			<div className="relative z-10 w-full h-screen flex flex-col justify-between p-8">
 				{/* Header */}
