@@ -48,6 +48,8 @@ export default function FocusSetupPage(): React.ReactElement {
 		useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [isTracking, setIsTracking] = useState(false);
+	const [isStarting, setIsStarting] = useState(false);
+	const [isNavigating, setIsNavigating] = useState(false);
 
 	// Initialize MediaPipe
 	useEffect(() => {
@@ -351,6 +353,7 @@ export default function FocusSetupPage(): React.ReactElement {
 
 	// Start session
 	const handleStartSession = () => {
+		setIsStarting(true);
 		const storedCalibration = sessionStorage.getItem(
 			'pendingCalibration'
 		);
@@ -638,20 +641,35 @@ export default function FocusSetupPage(): React.ReactElement {
 							<div className="flex gap-4 justify-center">
 								<Button
 									onClick={handleStartSession}
+									disabled={isStarting}
 									variant="outline"
-									className="border-white/20 text-white/70 hover:bg-white/5 px-6 py-6"
+									className="border-white/20 text-white/70 hover:bg-white/5 px-6 py-6 disabled:opacity-50"
 								>
 									Skip
 								</Button>
 								<Button
 									onClick={handleStartSession}
-									className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-6 text-lg"
+									disabled={isStarting}
+									className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-6 text-lg disabled:opacity-50"
 								>
-									Start Session
-									<ArrowRight
-										className="ml-2"
-										size={20}
-									/>
+									{isStarting ? (
+										<>
+											<CircleNotch
+												className="mr-2 animate-spin"
+												size={20}
+												weight="bold"
+											/>
+											Starting...
+										</>
+									) : (
+										<>
+											Start Session
+											<ArrowRight
+												className="ml-2"
+												size={20}
+											/>
+										</>
+									)}
 								</Button>
 							</div>
 						</div>
@@ -661,10 +679,23 @@ export default function FocusSetupPage(): React.ReactElement {
 				{/* Back to Dashboard */}
 				<div className="text-center mt-8">
 					<button
-						onClick={() => router.push('/dashboard')}
-						className="text-white/40 hover:text-white/60 text-sm transition-colors"
+						onClick={() => {
+							setIsNavigating(true);
+							router.push('/dashboard');
+						}}
+						disabled={isNavigating}
+						className="text-white/40 hover:text-white/60 text-sm transition-colors disabled:opacity-50 flex items-center gap-2 mx-auto"
 					>
-						← Back to Dashboard
+						{isNavigating ? (
+							<CircleNotch
+								size={14}
+								weight="bold"
+								className="animate-spin"
+							/>
+						) : (
+							'←'
+						)}
+						Back to Dashboard
 					</button>
 				</div>
 			</motion.div>
