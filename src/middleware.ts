@@ -22,6 +22,13 @@ export default clerkMiddleware(async (auth, request) => {
 		return NextResponse.next();
 	}
 
+	// Redirect /session to /dashboard (legacy route cleanup)
+	if (request.nextUrl.pathname === '/session') {
+		return NextResponse.redirect(
+			new URL('/dashboard', request.url)
+		);
+	}
+
 	// Protect non-public routes
 	if (!userId) {
 		await auth.protect();

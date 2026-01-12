@@ -51,12 +51,6 @@ export function Navbar(): React.ReactElement {
 												?.emailAddress
 										}
 									</span>
-									<Link
-										href="/dashboard"
-										className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium"
-									>
-										Dashboard
-									</Link>
 									<SignOutButton>
 										<button className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
 											Sign Out
@@ -149,15 +143,6 @@ export function Navbar(): React.ReactElement {
 						</a>
 						{isSignedIn ? (
 							<>
-								<Link
-									href="/dashboard"
-									className="text-2xl font-medium text-foreground hover:text-primary transition-colors"
-									onClick={() =>
-										setIsMobileMenuOpen(false)
-									}
-								>
-									Dashboard
-								</Link>
 								<SignOutButton>
 									<button
 										onClick={() =>
